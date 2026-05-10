@@ -1,38 +1,44 @@
-import { BarChart3, HeartHandshake, Home, TimerReset } from 'lucide-react'
+import React from 'react';
+import { BarChart3, Home, TimerReset } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
-function Navbar() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-600 text-white shadow-sm">
-            <HeartHandshake size={22} strokeWidth={2.4} />
-          </span>
-          <span>
-            <span className="block text-lg font-bold leading-5 text-slate-950">KeenKeeper</span>
-            <span className="block text-xs font-medium text-slate-500">Friendship tracker</span>
-          </span>
-        </div>
+const Navbar = () => {
+    const linkClass = ({ isActive }) =>
+        `inline-flex items-center gap-1.5 rounded-[3px] px-2.5 py-1.5 text-xs font-medium transition-colors ${
+            isActive
+                ? 'bg-[#184f3f] text-white shadow-sm'
+                : 'text-slate-500 hover:bg-slate-100 hover:text-[#184f3f]'
+        }`;
 
-        <div className="flex items-center gap-2">
-          <div className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm">
-            <Home size={18} strokeWidth={2.2} />
-            <span>Home</span>
-          </div>
+    return (
+        <header className="sticky top-0 z-50 bg-white">
+            <nav className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4 sm:px-12 lg:px-16">
+                <NavLink to="/" className="flex items-center gap-3">
+                    <span className="text-sm font-extrabold tracking-tight sm:text-base">
+                        <span className="text-slate-900">Keen</span>
+                        <span className="text-[#244D3F]">Keeper</span>
+                    </span>
+                </NavLink>
 
-          <div className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950">
-            <TimerReset size={18} strokeWidth={2.2} />
-            <span>Timeline</span>
-          </div>
+                <div className="flex items-center gap-2">
+                    <NavLink to="/" className={linkClass}>
+                        <Home size={13} strokeWidth={2.2} />
+                        <span>Home</span>
+                    </NavLink>
 
-          <div className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950">
-            <BarChart3 size={18} strokeWidth={2.2} />
-            <span>Stats</span>
-          </div>
-        </div>
-      </nav>
-    </header>
-  )
-}
+                    <NavLink to="/timeline" className={linkClass}>
+                        <TimerReset size={13} strokeWidth={2.2} />
+                        <span>Timeline</span>
+                    </NavLink>
 
-export default Navbar
+                    <NavLink to="/stats" className={linkClass}>
+                        <BarChart3 size={13} strokeWidth={2.2} />
+                        <span>Stats</span>
+                    </NavLink>
+                </div>
+            </nav>
+        </header>
+    );
+};
+
+export default Navbar;

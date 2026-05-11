@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Root from '../Root/Root';
 import Home from '../pages/Home/Home';
+import FriendDetails from '../pages/FriendDetails/FriendDetails';
 import NotFound from '../pages/NotFound/NotFound';
 import Stats from '../pages/Stats/Stats';
 import Timeline from '../pages/Timeline/Timeline';
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
             {
                 path: 'timeline',
                 element: <Timeline />,
+            },
+            {
+                path: 'friends/:id',
+                element: <FriendDetails />,
             },
             {
                 path: 'stats',

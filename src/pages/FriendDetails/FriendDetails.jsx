@@ -4,9 +4,11 @@ import { useParams } from 'react-router-dom';
 import callIcon from '../../assets/call.png';
 import textIcon from '../../assets/text.png';
 import videoIcon from '../../assets/video.png';
+import { useTimeline } from '../../context/TimelineContext';
 
 const FriendDetails = () => {
     const { id } = useParams();
+    const { addTimelineEntry } = useTimeline();
     const [friend, setFriend] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
@@ -124,9 +126,21 @@ const FriendDetails = () => {
                         <h2 className="text-lg font-extrabold text-slate-900">Quick Check-In</h2>
 
                         <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                            <CheckInButton icon={callIcon} label="Call" />
-                            <CheckInButton icon={textIcon} label="Text" />
-                            <CheckInButton icon={videoIcon} label="Video" />
+                            <CheckInButton
+                                icon={callIcon}
+                                label="Call"
+                                onClick={() => addTimelineEntry('call', friend.name)}
+                            />
+                            <CheckInButton
+                                icon={textIcon}
+                                label="Text"
+                                onClick={() => addTimelineEntry('text', friend.name)}
+                            />
+                            <CheckInButton
+                                icon={videoIcon}
+                                label="Video"
+                                onClick={() => addTimelineEntry('video', friend.name)}
+                            />
                         </div>
                     </div>
                 </section>
@@ -144,9 +158,12 @@ const StatsCard = ({ value, label }) => {
     );
 };
 
-const CheckInButton = ({ icon, label }) => {
+const CheckInButton = ({ icon, label, onClick }) => {
     return (
-        <button className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-[#244D3F] hover:text-[#244D3F]">
+        <button
+            onClick={onClick}
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-[#244D3F] hover:text-[#244D3F]"
+        >
             <img src={icon} alt="" className="h-5 w-5" />
             <span>{label}</span>
         </button>
